@@ -109,6 +109,8 @@ class CustomerServiceTests {
 
 	@AfterEach
 	void tearDown() throws Exception {
+
+		customer = null;
 	}
 
 }
