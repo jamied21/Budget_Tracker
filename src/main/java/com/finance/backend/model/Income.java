@@ -2,30 +2,43 @@ package com.finance.backend.model;
 
 import java.math.BigDecimal;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
+@Table(name = "incomes")
 public class Income {
 	@Id
-	@SequenceGenerator(name = "INCOME_ID_GEN", sequenceName = "income_id_seq", initialValue = 1, allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "INCOME_ID_GEN")
+	@Column(name = "income_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	private Integer year; // Could look into date time
+	private Integer incomeYear;
 
-	private String month; // Subject to change the datatype
+	@NotBlank(message = "Income month is required.")
+	private String incomeMonth;
 
-	private BigDecimal income;
+	@Column(name = "salary")
+	@Digits(integer = 3, fraction = 2)
+	@DecimalMin(value = "0.1", inclusive = false, message = "Please insert a valid Salary > 0.0")
+	private BigDecimal salary;
 
-	public Income(Integer year, String month, BigDecimal income) {
+	public Income() {
 
-		this.year = year;
-		this.month = month;
-		this.income = income;
+	}
+
+	public Income(Integer incomeYear, String incomeMonth, BigDecimal salary) {
+
+		this.incomeYear = incomeYear;
+		this.incomeMonth = incomeMonth;
+		this.salary = salary;
 	}
 
 	public Integer getId() {
@@ -36,28 +49,34 @@ public class Income {
 		this.id = id;
 	}
 
-	public Integer getYear() {
-		return year;
+	public Integer getincomeYear() {
+		return incomeYear;
 	}
 
-	public void setYear(Integer year) {
-		this.year = year;
+	public void setincomeYear(Integer incomeYear) {
+		this.incomeYear = incomeYear;
 	}
 
-	public String getMonth() {
-		return month;
+	public String getincomeMonth() {
+		return incomeMonth;
 	}
 
-	public void setMonth(String month) {
-		this.month = month;
+	public void setincomeMonth(String incomeMonth) {
+		this.incomeMonth = incomeMonth;
 	}
 
-	public BigDecimal getIncome() {
-		return income;
+	public BigDecimal getSalary() {
+		return salary;
 	}
 
-	public void setIncome(BigDecimal income) {
-		this.income = income;
+	public void setSalary(BigDecimal salary) {
+		this.salary = salary;
+	}
+
+	@Override
+	public String toString() {
+		return "Income [id=" + id + ", incomeYear=" + incomeYear + ", incomeMonth=" + incomeMonth + ", salary=" + salary
+				+ "]";
 	}
 
 }

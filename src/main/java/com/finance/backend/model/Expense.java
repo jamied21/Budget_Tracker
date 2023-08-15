@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
@@ -30,6 +32,10 @@ public class Expense {
 	@DecimalMin(value = "0.1", inclusive = false, message = "Please insert a valid amount > 0.0")
 	@Column(name = "amount")
 	private BigDecimal amount;
+
+	@ManyToOne
+	@JoinColumn(name = "FK_Budget_ID")
+	private Budget budget;
 
 	public Expense(String expenseName, BigDecimal amount) {
 
