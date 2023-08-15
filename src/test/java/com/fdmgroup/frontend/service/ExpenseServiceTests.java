@@ -129,6 +129,40 @@ class ExpenseServiceTests {
 		verify(MockExpenseRepository, times(1)).findAll();
 	}
 
+	@Test
+	@DisplayName("Update Expense By ID True")
+	void arrangeExpenseObject_actUpdateExpense_assertCheckUpdateOccurs() {
+
+		Integer id = 1;
+
+		// arrange
+		when(MockExpenseRepository.existsById(id)).thenReturn(true);
+		// act
+		boolean result = MockExpenseService.updateExpenseById(id, expense);
+
+		// assert
+		assertThat(result).isEqualTo(true);
+		verify(MockExpenseRepository, times(1)).save(expense);
+
+	}
+
+	@Test
+	@DisplayName("Update Expense By ID False")
+	void arrangeExpenseObject_actUpdateExpense_assertCheckUpdateDoesNotOccur() {
+
+		Integer id = 1;
+
+		// arrange
+		when(MockExpenseRepository.existsById(id)).thenReturn(false);
+		// act
+		boolean result = MockExpenseService.updateExpenseById(id, expense);
+
+		// assert
+		assertThat(result).isEqualTo(false);
+		verify(MockExpenseRepository, times(0)).save(expense);
+
+	}
+
 	@AfterEach
 	void tearDown() throws Exception {
 
