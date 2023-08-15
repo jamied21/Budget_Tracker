@@ -45,4 +45,14 @@ public class ExpenseServiceImp implements ExpenseService {
 		return false;
 	}
 
+	@Override
+	public boolean updateExpenseById(Integer id, Expense expense) {
+		if (this.expenseRepository.existsById(id)) {
+			this.expenseRepository.save(expense);
+			return true;
+
+		}
+		return false;
+	}
+
 }

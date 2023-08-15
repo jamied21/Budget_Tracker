@@ -14,4 +14,6 @@ public interface ExpenseService {
 
 	boolean deleteExpenseByid(Integer id);
 
+	boolean updateExpenseById(Integer id, Expense expense);
+
 }
