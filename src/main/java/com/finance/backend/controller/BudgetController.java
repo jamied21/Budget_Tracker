@@ -3,7 +3,6 @@ package com.finance.backend.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -26,8 +25,12 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/v1/budgets")
 public class BudgetController {
 
-	@Autowired
 	private BudgetService budgetService;
+
+	public BudgetController(BudgetService budgetService) {
+
+		this.budgetService = budgetService;
+	}
 
 	@PostMapping
 	public ResponseEntity<?> saveBudget(@Valid @RequestBody Budget budget, BindingResult bindingResult) {

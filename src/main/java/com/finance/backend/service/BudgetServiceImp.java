@@ -17,6 +17,11 @@ public class BudgetServiceImp implements BudgetService {
 	@Autowired
 	private BudgetRepository budgetRepository;
 
+	public BudgetServiceImp(BudgetRepository budgetRepository) {
+
+		this.budgetRepository = budgetRepository;
+	}
+
 	@Override
 	public Budget saveBudget(Budget budget) {
 

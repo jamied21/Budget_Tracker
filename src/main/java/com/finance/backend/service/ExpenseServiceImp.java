@@ -17,6 +17,11 @@ public class ExpenseServiceImp implements ExpenseService {
 	@Autowired
 	private ExpenseRepository expenseRepository;
 
+	public ExpenseServiceImp(ExpenseRepository expenseRepository) {
+
+		this.expenseRepository = expenseRepository;
+	}
+
 	@Override
 	public Expense SaveExpense(Expense expense) {
 

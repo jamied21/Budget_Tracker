@@ -15,6 +15,11 @@ public class CustomerServiceImp implements CustomerService {
 	@Autowired
 	private CustomerRepository customerRepository;
 
+	public CustomerServiceImp(CustomerRepository customerRepository) {
+
+		this.customerRepository = customerRepository;
+	}
+
 	@Override
 	public Customer SaveCustomer(Customer customer) {
 
