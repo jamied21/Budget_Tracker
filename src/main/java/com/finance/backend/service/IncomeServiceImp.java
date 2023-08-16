@@ -2,12 +2,23 @@ package com.finance.backend.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.finance.backend.Repository.IncomeRepository;
 import com.finance.backend.model.Income;
 
+import jakarta.transaction.Transactional;
+
+@Transactional
+@Service
 public class IncomeServiceImp implements IncomeService {
 
 	private IncomeRepository incomeRepository;
+
+	public IncomeServiceImp(IncomeRepository incomeRepository) {
+
+		this.incomeRepository = incomeRepository;
+	}
 
 	@Override
 	public Income SaveIncome(Income income) {

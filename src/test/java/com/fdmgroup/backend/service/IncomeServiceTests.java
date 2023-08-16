@@ -1,4 +1,4 @@
-package com.fdmgroup.frontend.service;
+package com.fdmgroup.backend.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.times;

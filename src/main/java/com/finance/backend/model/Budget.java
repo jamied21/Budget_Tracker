@@ -9,6 +9,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Budget {
@@ -17,12 +21,20 @@ public class Budget {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BUDGET_ID_GEN")
 	private Integer id;
 
+	@NotBlank(message = "Please type in a budget name")
+	@Size(min = 2, max = 255, message = "Budget Name must be between 2 to 255 characters long.")
 	private String budgetName; // For example transport, food , leisure
 
+	@Digits(integer = 3, fraction = 2)
+	@DecimalMin(value = "0.1", inclusive = false, message = "Please insert a valid Amount > 0.0")
 	private BigDecimal budgetAmount;
 
 	@OneToMany(mappedBy = "budget")
 	private List<Expense> expense;
+
+	public Budget() {
+
+	}
 
 	public Budget(String budgetName, BigDecimal budgetAmount) {
 
@@ -52,6 +64,12 @@ public class Budget {
 
 	public void setBudgetAmount(BigDecimal budgetAmount) {
 		this.budgetAmount = budgetAmount;
+	}
+
+	@Override
+	public String toString() {
+		return "Budget [id=" + id + ", budgetName=" + budgetName + ", budgetAmount=" + budgetAmount + ", expense="
+				+ expense + "]";
 	}
 
 }
