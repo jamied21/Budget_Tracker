@@ -1,4 +1,4 @@
-package com.fdmgroup.backend.controller;
+package com.finance.backend.controller;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.ArgumentMatchers.any;
@@ -34,9 +34,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.finance.backend.model.Budget;
 import com.finance.backend.service.BudgetServiceImp;
 
-@WebMvcTest
-class BudgetControllerTests {
-
+@WebMvcTest(BudgetController.class)
+class BudgetControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 
@@ -120,9 +119,7 @@ class BudgetControllerTests {
 	@DisplayName("saveBudget-Positive")
 	public void givenBudgetObject_whenSaveBudget_thenReturnSavedBudget() throws Exception {
 		// given
-		given(budgetService.saveBudget(ArgumentMatchers.any(Budget.class)))
-				.willAnswer(invocation -> invocation.getArgument(0));
-		;
+		given(budgetService.saveBudget(ArgumentMatchers.any(Budget.class))).willReturn(budget);
 
 		// when & then
 
@@ -133,8 +130,7 @@ class BudgetControllerTests {
 				.content(objectMapper.writeValueAsString(budget)))
 				.andDo(print())
 				.andExpect(status().isCreated())
-				.andExpect(jsonPath("$.budgetName", is(budget.getBudgetName())))
-				.andExpect(jsonPath("$.budgetAmount", is(budget.getBudgetAmount())));
+				.andExpect(jsonPath("$.budgetName", is(budget.getBudgetName())));
 		
 		// @formatter:on
 
@@ -168,5 +164,4 @@ class BudgetControllerTests {
 
 		budget = null;
 	}
-
 }

@@ -64,16 +64,15 @@ public class BudgetController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteBudgetByID(@PathVariable Integer id) {
-		Budget budgetInDb = this.budgetService.findBudgetById(id);
+	public ResponseEntity<Void> deleteBudgetByID(@PathVariable Integer id) {
 
-		if (budgetInDb == null) {
+		if (this.budgetService.deleteBudgetById(id)) {
 
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.OK);
 
 		}
 
-		return new ResponseEntity<>(this.budgetService.deleteBudgetById(id), HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 
 	@GetMapping("/{id}")

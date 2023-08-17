@@ -12,6 +12,7 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -25,6 +26,7 @@ public class Budget {
 	@Size(min = 2, max = 255, message = "Budget Name must be between 2 to 255 characters long.")
 	private String budgetName; // For example transport, food , leisure
 
+	@NotNull(message = "Budget Amount is required.")
 	@Digits(integer = 3, fraction = 2)
 	@DecimalMin(value = "0.1", inclusive = false, message = "Please insert a valid Amount > 0.0")
 	private BigDecimal budgetAmount;
