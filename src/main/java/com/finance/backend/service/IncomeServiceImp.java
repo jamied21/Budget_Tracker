@@ -21,7 +21,7 @@ public class IncomeServiceImp implements IncomeService {
 	}
 
 	@Override
-	public Income SaveIncome(Income income) {
+	public Income saveIncome(Income income) {
 
 		return this.incomeRepository.save(income);
 	}
@@ -39,7 +39,7 @@ public class IncomeServiceImp implements IncomeService {
 	}
 
 	@Override
-	public boolean deleteIncomeByid(Integer id) {
+	public boolean deleteIncomeById(Integer id) {
 		if (this.incomeRepository.existsById(id)) {
 			this.incomeRepository.deleteById(id);
 			return true;

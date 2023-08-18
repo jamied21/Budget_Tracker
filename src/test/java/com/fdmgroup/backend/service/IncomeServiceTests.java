@@ -49,7 +49,7 @@ class IncomeServiceTests {
 		//arrange
 		when(MockIncomeRepository.save(income)).thenReturn(income);
 		//act
-		MockIncomeService.SaveIncome(income);
+		MockIncomeService.saveIncome(income);
 		
 		//assert
 		verify(MockIncomeRepository,times(1)).save(income);
@@ -69,7 +69,7 @@ class IncomeServiceTests {
 		// assert
 		assertThat(result).isNotNull();
 		assertThat(result.getId()).isEqualTo(income.getId());
-		assertThat(result.getincomeMonth()).isEqualTo(income.getincomeMonth());
+		assertThat(result.getIncomeMonth()).isEqualTo(income.getIncomeMonth());
 		assertThat(result.getSalary()).isEqualTo(income.getSalary());
 
 		verify(MockIncomeRepository, times(1)).findById(id);
@@ -85,7 +85,7 @@ class IncomeServiceTests {
 		// arrange
 		when(MockIncomeRepository.existsById(id)).thenReturn(true);
 		// act
-		boolean result = MockIncomeService.deleteIncomeByid(id);
+		boolean result = MockIncomeService.deleteIncomeById(id);
 
 		// assert
 		assertThat(result).isEqualTo(true);
@@ -102,7 +102,7 @@ class IncomeServiceTests {
 		// arrange
 		when(MockIncomeRepository.existsById(id)).thenReturn(false);
 		// act
-		boolean result = MockIncomeService.deleteIncomeByid(id);
+		boolean result = MockIncomeService.deleteIncomeById(id);
 
 		// assert
 		assertThat(result).isEqualTo(false);
@@ -125,7 +125,7 @@ class IncomeServiceTests {
 		// assert
 		assertThat(result).isNotNull();
 		assertThat(result.size()).isEqualTo(1);
-		assertThat(result.get(0).getincomeMonth()).isEqualTo(income.getincomeMonth());
+		assertThat(result.get(0).getIncomeMonth()).isEqualTo(income.getIncomeMonth());
 		verify(MockIncomeRepository, times(1)).findAll();
 	}
 

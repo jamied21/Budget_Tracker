@@ -49,7 +49,7 @@ class ExpenseServiceTests {
 		//arrange
 		when(MockExpenseRepository.save(expense)).thenReturn(expense);
 		//act
-		MockExpenseService.SaveExpense(expense);
+		MockExpenseService.saveExpense(expense);
 		
 		//assert
 		verify(MockExpenseRepository,times(1)).save(expense);

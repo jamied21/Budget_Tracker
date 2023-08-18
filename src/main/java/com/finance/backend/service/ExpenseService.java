@@ -6,7 +6,7 @@ import com.finance.backend.model.Expense;
 
 public interface ExpenseService {
 
-	Expense SaveExpense(Expense expense);
+	Expense saveExpense(Expense expense);
 
 	Expense findExpenseById(Integer id);
 
