@@ -6,13 +6,13 @@ import com.finance.backend.model.Income;
 
 public interface IncomeService {
 
-	Income SaveIncome(Income income);
+	Income saveIncome(Income income);
 
 	Income findIncomeById(Integer id);
 
 	List<Income> findAllIncomes();
 
-	boolean deleteIncomeByid(Integer id);
+	boolean deleteIncomeById(Integer id);
 
 	boolean updateIncomeById(Integer id, Income income);
 

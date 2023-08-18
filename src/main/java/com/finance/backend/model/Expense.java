@@ -12,8 +12,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Table(name = "Expenses")
 @Entity
@@ -28,7 +28,7 @@ public class Expense {
 	@Column(name = "expense_name")
 	private String expenseName;
 
-	@Digits(integer = 3, fraction = 2)
+	@NotNull(message = "Expense amount is required")
 	@DecimalMin(value = "0.1", inclusive = false, message = "Please insert a valid amount > 0.0")
 	@Column(name = "amount")
 	private BigDecimal amount;
