@@ -6,14 +6,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
-@Table(name = "Customers")
 @Entity
 public class Customer {
 	@Id
-	@Column(name = "customer_id")
 	@SequenceGenerator(name = "CUSTOMER_ID_GEN", sequenceName = "customer_id_seq", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CUSTOMER_ID_GEN")
 	private Integer id;

@@ -2,6 +2,7 @@ package com.finance.backend.model;
 
 import java.math.BigDecimal;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,16 +11,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-@Table(name = "Expenses")
 @Entity
 public class Expense {
 	@Id
-	@Column(name = "expense_id")
 	@SequenceGenerator(name = "EXPENSE_ID_GEN", sequenceName = "expense_id_seq", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EXPENSE_ID_GEN")
 	private Integer id;
@@ -33,9 +31,13 @@ public class Expense {
 	@Column(name = "amount")
 	private BigDecimal amount;
 
-	@ManyToOne
-	@JoinColumn(name = "FK_Budget_ID")
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
+	@JoinColumn(name = "FK_BUDGET_ID")
 	private Budget budget;
+
+	public Expense() {
+
+	}
 
 	public Expense(String expenseName, BigDecimal amount) {
 
@@ -65,6 +67,14 @@ public class Expense {
 
 	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
+	}
+
+	public Budget getBudget() {
+		return budget;
+	}
+
+	public void setBudget(Budget budget) {
+		this.budget = budget;
 	}
 
 }

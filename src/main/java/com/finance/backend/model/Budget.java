@@ -66,10 +66,4 @@ public class Budget {
 		this.budgetAmount = budgetAmount;
 	}
 
-	@Override
-	public String toString() {
-		return "Budget [id=" + id + ", budgetName=" + budgetName + ", budgetAmount=" + budgetAmount + ", expense="
-				+ expense + "]";
-	}
-
 }
