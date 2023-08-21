@@ -97,6 +97,39 @@ class ExpenseControllerTests {
 	}
 
 	@Test
+	@DisplayName("findExpenseByID--positive")
+	void givenExpenseId_whenFindExpenseById_thenReturnExpenseObjectFromDB() throws Exception {
+		// arrange
+		given(expenseService.findExpenseById(1)).willReturn(expense);
+		// act-assert
+
+		// @Formatter: off
+		mockMvc.perform(get("/api/v1/expenses/1")).andDo(print()).andExpect(status().isOk())
+				.andExpect(jsonPath("$.expenseName", is(expense.getExpenseName())));
+
+		// @Formatter: on
+
+		verify(expenseService, times(1)).findExpenseById(1);
+
+	}
+
+	@Test
+	@DisplayName("findExpenseByID--negative")
+	void givenExpenseId_whenFindExpenseById_thenReturnError() throws Exception {
+		// arrange
+		given(expenseService.findExpenseById(2)).willReturn(null);
+		// act-assert
+
+		// @Formatter: off
+		mockMvc.perform(get("/api/v1/expenses/2")).andDo(print()).andExpect(status().isNotFound());
+
+		// @Formatter: on
+
+		verify(expenseService, times(1)).findExpenseById(2);
+
+	}
+
+	@Test
 	public void testUpdateExpenseById() throws Exception {
 	    when(expenseService.updateExpenseById(eq(1), any(Expense.class))).thenReturn(true);
 

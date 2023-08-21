@@ -33,9 +33,16 @@ class BudgetServiceTests {
 	private BudgetRepository MockBudgetRepository;
 	@Mock
 	private Budget budget;
+	// private Expense expense1;
+	// private Expense expense2;
 
 	@BeforeEach
 	void setUp() {
+//		List<Expense> expenses = new ArrayList<>();
+//		expense1 = new Expense("Beer", BigDecimal.valueOf(40.0));
+//		expense2 = new Expense("Train", BigDecimal.valueOf(10.0));
+//		expenses.add(expense1);
+//		expenses.add(expense2);
 
 		budget = new Budget("Food", BigDecimal.valueOf(40.0));
 		budget.setId(1);
@@ -49,9 +56,13 @@ class BudgetServiceTests {
 		//arrange
 		when(MockBudgetRepository.save(budget)).thenReturn(budget);
 		//act
-		MockBudgetService.saveBudget(budget);
+		Budget result = MockBudgetService.saveBudget(budget);
 		
 		//assert
+		assertThat(result).isNotNull();
+		assertThat(result.getId()).isEqualTo(budget.getId());
+		assertThat(result.getBudgetName()).isEqualTo(budget.getBudgetName());
+		assertThat(result.getBudgetAmount()).isEqualTo(budget.getBudgetAmount());
 		verify(MockBudgetRepository,times(1)).save(budget);
 
 	}
@@ -71,7 +82,6 @@ class BudgetServiceTests {
 		assertThat(result.getId()).isEqualTo(budget.getId());
 		assertThat(result.getBudgetName()).isEqualTo(budget.getBudgetName());
 		assertThat(result.getBudgetAmount()).isEqualTo(budget.getBudgetAmount());
-
 		verify(MockBudgetRepository, times(1)).findById(id);
 
 	}
