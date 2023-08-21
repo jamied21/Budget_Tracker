@@ -43,13 +43,19 @@ class BudgetControllerTest {
 	private BudgetServiceImp budgetService;
 
 	private Budget budget;
+	// private Expense expense1;
+	// private Expense expense2;
 
 	@Autowired
 	private ObjectMapper objectMapper; // needed to convert to JSON object
 
 	@BeforeEach
 	void setUp() {
-
+//		expense1 = new Expense("Beer", BigDecimal.valueOf(40.0));
+//		expense1 = new Expense("Train", BigDecimal.valueOf(10.0));
+//		List<Expense> expenses = new ArrayList<>();
+//		expenses.add(expense1);
+//		expenses.add(expense2);
 		budget = new Budget("Food", BigDecimal.valueOf(40.0));
 		budget.setId(1);
 
@@ -93,6 +99,40 @@ class BudgetControllerTest {
 		mockMvc.perform(delete("/api/v1/budgets/2")).andDo(print()).andExpect(status().isNotFound());
 
 		verify(budgetService, times(1)).deleteBudgetById(id);
+
+	}
+
+	@Test
+	@DisplayName("findBudgetByID--positive")
+	void givenBudgetId_whenFindBudgetById_thenReturnBudgetObjectFromDB() throws Exception {
+		// arrange
+		given(budgetService.findBudgetById(1)).willReturn(budget);
+		// act-assert
+
+		// @Formatter: off
+		mockMvc.perform(get("/api/v1/budgets/1")).andDo(print()).andExpect(status().isOk())
+				.andExpect(jsonPath("$.budgetName", is(budget.getBudgetName())));
+
+		// @Formatter: on
+
+		verify(budgetService, times(1)).findBudgetById(1);
+
+	}
+
+	@Test
+	@DisplayName("findBudgetByID--negative")
+	void givenBudgetId_whenFindBudgetById_thenReturnError() throws Exception {
+		// arrange
+		given(budgetService.findBudgetById(2)).willReturn(null);
+		// act-assert
+
+		// @Formatter: off
+		mockMvc.perform(get("/api/v1/budgets/2")).andDo(print()).andExpect(status().isNotFound());
+
+		// @Formatter: on
+
+		verify(budgetService, times(1)).findBudgetById(2);
+
 	}
 
 	@Test

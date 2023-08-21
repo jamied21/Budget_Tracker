@@ -30,7 +30,7 @@ public class Budget {
 	private BigDecimal budgetAmount;
 
 	@OneToMany(mappedBy = "budget")
-	private List<Expense> expense;
+	private List<Expense> expenses;
 
 	public Budget() {
 
@@ -40,6 +40,7 @@ public class Budget {
 
 		this.budgetName = budgetName;
 		this.budgetAmount = budgetAmount;
+		// this.expenses = expenses;
 	}
 
 	public Integer getId() {
@@ -65,5 +66,11 @@ public class Budget {
 	public void setBudgetAmount(BigDecimal budgetAmount) {
 		this.budgetAmount = budgetAmount;
 	}
+
+	/*
+	 * public List<Expense> getExpenses() { return expenses; }
+	 * 
+	 * public void setExpenses(List<Expense> expenses) { this.expenses = expenses; }
+	 */
 
 }
