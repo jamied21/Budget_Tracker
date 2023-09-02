@@ -31,6 +31,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.finance.backend.model.Budget;
 import com.finance.backend.model.Expense;
 import com.finance.backend.service.ExpenseServiceImp;
 
@@ -45,14 +46,18 @@ class ExpenseControllerTests {
 
 	private Expense expense;
 
+	private Budget budget;
+
 	@Autowired
 	private ObjectMapper objectMapper; // needed to convert to JSON object
 
 	@BeforeEach
 	void setUp() {
-
+		budget = new Budget("Food", BigDecimal.valueOf(40.0));
+		budget.setId(1);
 		expense = new Expense("Food", BigDecimal.valueOf(40.0));
 		expense.setId(1);
+		expense.setBudget(budget);
 
 	}
 
