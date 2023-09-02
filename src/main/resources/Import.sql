@@ -1,6 +1,6 @@
-INSERT INTO Budget (id, budget_Name, budget_Amount) VALUES (nextval('budget_id_seq'), 'Travel', 140);
-INSERT INTO Budget (id, budget_Name, budget_Amount) VALUES (nextval('budget_id_seq'), 'Food', 100);
-INSERT INTO Budget (id, budget_Name, budget_Amount) VALUES (nextval('budget_id_seq'), 'Beer', 200);
+INSERT INTO Budget (budget_id, budget_Name, budget_Amount) VALUES (nextval('budget_id_seq'), 'Travel', 140);
+INSERT INTO Budget (budget_id, budget_Name, budget_Amount) VALUES (nextval('budget_id_seq'), 'Food', 100);
+INSERT INTO Budget (budget_id, budget_Name, budget_Amount) VALUES (nextval('budget_id_seq'), 'Beer', 200);
 
 
 INSERT INTO Expense (fk_budget_id, id, expense_Name, amount) VALUES (1, nextval('expense_id_seq'), 'Train', 20);
