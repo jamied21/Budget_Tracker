@@ -198,6 +198,21 @@ class ExpenseControllerTests {
 		verify(expenseService, times(0)).saveExpense(ArgumentMatchers.any(Expense.class));
 	}
 
+	@Test
+	@DisplayName("Find Expense by Income Id")
+	public void givenIncomeId_whenFindIncomeId_thenRelatedExpenses() throws Exception {
+		// given
+		List<Expense> expenses = List.of(expense);
+		Integer incomeId = 1;
+		when(expenseService.findExpensesByIncomeId(incomeId)).thenReturn(expenses);
+
+		// when & then
+		mockMvc.perform(get("/api/v1/expenses/incomes/{incomeId}", incomeId)).andDo(print()).andExpect(status().isOk())
+				.andExpect(jsonPath("$", Matchers.hasSize(1)))
+				.andExpect(jsonPath("$[0].expenseName", is(expense.getExpenseName())));
+		verify(expenseService, times(1)).findExpensesByIncomeId(incomeId);
+	}
+
 	@AfterEach
 	void tearDown() {
 

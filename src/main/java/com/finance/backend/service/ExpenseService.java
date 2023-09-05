@@ -16,4 +16,6 @@ public interface ExpenseService {
 
 	boolean updateExpenseById(Integer id, Expense expense);
 
+	List<Expense> findExpensesByIncomeId(Integer incomeId);
+
 }

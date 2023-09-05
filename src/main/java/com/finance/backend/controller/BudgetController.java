@@ -1,6 +1,7 @@
 package com.finance.backend.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
@@ -93,6 +94,18 @@ public class BudgetController {
 	@GetMapping
 	public ResponseEntity<?> findAllBudget() {
 		return new ResponseEntity<>(this.budgetService.findAllBudgets(), HttpStatus.OK);
+	}
+
+	@GetMapping("/incomes/{incomeId}")
+	public ResponseEntity<?> findBudgetsByIncomeId(@PathVariable Integer incomeId) {
+		List<Budget> budgets = budgetService.findByIncomeId(incomeId);
+
+		if (budgets.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+		}
+
+		return new ResponseEntity<>(budgets, HttpStatus.OK);
 	}
 
 }

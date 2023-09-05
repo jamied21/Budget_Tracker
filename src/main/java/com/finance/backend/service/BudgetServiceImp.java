@@ -60,4 +60,9 @@ public class BudgetServiceImp implements BudgetService {
 		return false;
 	}
 
+	public List<Budget> findByIncomeId(Integer incomeId) {
+		return this.budgetRepository.findByIncomeId(incomeId);
+
+	}
+
 }

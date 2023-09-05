@@ -7,12 +7,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
+@Table(name = "budgets")
 public class Budget {
 	@Id
 	@Column(name = "budget_id")
@@ -27,6 +31,10 @@ public class Budget {
 	@NotNull(message = "Budget Amount is required.")
 	private BigDecimal budgetAmount;
 
+	@ManyToOne
+	@JoinColumn(name = "FK_INCOME_ID")
+	private Income income;
+
 	public Budget() {
 
 	}
@@ -37,19 +45,6 @@ public class Budget {
 		this.budgetAmount = budgetAmount;
 		// this.expenses = expenses;
 	}
-
-	public BigDecimal amountLeft(Budget budget, Expense expense) {
-
-		BigDecimal remainingBudget = budget.getBudgetAmount().subtract(expense.getAmount());
-
-		if (remainingBudget.compareTo(BigDecimal.ZERO) < 0) {
-
-			System.out.print("Error you are over budget");
-
-		}
-		return remainingBudget;
-
-	};
 
 	public Integer getId() {
 		return id;
@@ -73,6 +68,14 @@ public class Budget {
 
 	public void setBudgetAmount(BigDecimal budgetAmount) {
 		this.budgetAmount = budgetAmount;
+	}
+
+	public Income getIncome() {
+		return income;
+	}
+
+	public void setIncome(Income income) {
+		this.income = income;
 	}
 
 	/*

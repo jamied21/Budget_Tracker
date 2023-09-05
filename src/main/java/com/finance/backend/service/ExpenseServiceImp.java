@@ -60,4 +60,10 @@ public class ExpenseServiceImp implements ExpenseService {
 		return false;
 	}
 
+	@Override
+	public List<Expense> findExpensesByIncomeId(Integer incomeId) {
+
+		return this.expenseRepository.findByIncomeId(incomeId);
+	}
+
 }
