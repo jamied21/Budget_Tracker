@@ -16,4 +16,6 @@ public interface BudgetService {
 
 	boolean deleteBudgetById(Integer id);
 
+	List<Budget> findByIncomeId(Integer incomeId);
+
 }

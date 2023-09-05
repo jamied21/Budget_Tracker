@@ -21,6 +21,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.finance.backend.Repository.BudgetRepository;
 import com.finance.backend.model.Budget;
+import com.finance.backend.model.Income;
 import com.finance.backend.service.BudgetServiceImp;
 
 @ExtendWith(MockitoExtension.class)
@@ -33,6 +34,8 @@ class BudgetServiceTests {
 	private BudgetRepository MockBudgetRepository;
 	@Mock
 	private Budget budget;
+	private Budget budget2;
+	private Income income;
 	// private Expense expense1;
 	// private Expense expense2;
 
@@ -46,6 +49,9 @@ class BudgetServiceTests {
 
 		budget = new Budget("Food", BigDecimal.valueOf(40.0));
 		budget.setId(1);
+
+		budget2 = new Budget("Travel", BigDecimal.valueOf(40.0));
+		budget2.setId(2);
 
 	}
 
@@ -171,6 +177,31 @@ class BudgetServiceTests {
 		assertThat(result).isEqualTo(false);
 		verify(MockBudgetRepository, times(0)).save(budget);
 
+	}
+
+	@Test
+	@DisplayName("Find Budget By Income ID")
+	void arrangeBudgetAndIncomeObject_actfindBudget_assertCheckBudgetIsCorrect() {
+		List<Budget> budgets = new ArrayList<>();
+		budgets.add(budget);
+		budgets.add(budget2);
+
+		/*
+		 * Income income = new Income(2023, "August", BigDecimal.valueOf(20000.0));
+		 * income.setId(2); budget.setIncome(income);
+		 */
+
+		Integer incomeId = 1;
+		// arrange
+		when(MockBudgetRepository.findByIncomeId(incomeId)).thenReturn(budgets);
+		// act
+		List<Budget> result = MockBudgetService.findByIncomeId(incomeId);
+
+		// assert
+		assertThat(result).isNotNull();
+		assertThat(result.size()).isEqualTo(2);
+		assertThat(result.get(0).getBudgetName()).isEqualTo(budget.getBudgetName());
+		verify(MockBudgetRepository, times(1)).findByIncomeId(incomeId);
 	}
 
 	@AfterEach

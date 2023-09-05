@@ -32,6 +32,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.finance.backend.model.Budget;
+import com.finance.backend.model.Income;
 import com.finance.backend.service.BudgetServiceImp;
 
 @WebMvcTest(BudgetController.class)
@@ -43,6 +44,8 @@ class BudgetControllerTest {
 	private BudgetServiceImp budgetService;
 
 	private Budget budget;
+
+	private Income income;
 	// private Expense expense1;
 	// private Expense expense2;
 
@@ -199,9 +202,31 @@ class BudgetControllerTest {
 		verify(budgetService, times(0)).saveBudget(ArgumentMatchers.any(Budget.class));
 	}
 
+	@Test
+	@DisplayName("Find Budgets by Income Id")
+	public void givenIncomeId_whenFindBudgets_thenReturnAllBudgets() throws Exception {
+
+		Income income = new Income(2023, "August", BigDecimal.valueOf(20000.0));
+		income.setId(2);
+		budget.setIncome(income);
+
+		List<Budget> budgets = List.of(budget);
+
+		Integer incomeId = 2;
+		when(budgetService.findByIncomeId(incomeId)).thenReturn(budgets);
+
+		mockMvc.perform(get("/api/v1/budgets/incomes/{incomeId}", incomeId)).andDo(print()).andExpect(status().isOk())
+				.andExpect(jsonPath("$", Matchers.hasSize(1)))
+				.andExpect(jsonPath("$[0].budgetName", is(budget.getBudgetName())));
+
+		verify(budgetService, times(1)).findByIncomeId(incomeId);
+
+	}
+
 	@AfterEach
 	void tearDown() {
 
 		budget = null;
+		income = null;
 	}
 }

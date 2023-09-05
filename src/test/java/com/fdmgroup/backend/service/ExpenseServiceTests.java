@@ -163,6 +163,30 @@ class ExpenseServiceTests {
 
 	}
 
+	@Test
+	@DisplayName("Find Expense By Income ID")
+	void arrangeExpenseObject_actfindExpemse_assertCheckExpenseIsCorrect() {
+		List<Expense> expenses = new ArrayList<>();
+		expenses.add(expense);
+
+		/*
+		 * Income income = new Income(2023, "August", BigDecimal.valueOf(20000.0));
+		 * income.setId(2); budget.setIncome(income);
+		 */
+
+		Integer incomeId = 1;
+		// arrange
+		when(MockExpenseRepository.findByIncomeId(incomeId)).thenReturn(expenses);
+		// act
+		List<Expense> result = MockExpenseService.findExpensesByIncomeId(incomeId);
+
+		// assert
+		assertThat(result).isNotNull();
+		assertThat(result.size()).isEqualTo(1);
+		assertThat(result.get(0).getExpenseName()).isEqualTo(expense.getExpenseName());
+		verify(MockExpenseRepository, times(1)).findByIncomeId(incomeId);
+	}
+
 	@AfterEach
 	void tearDown() throws Exception {
 
