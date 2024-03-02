@@ -104,7 +104,7 @@ public class ExpenseController {
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 
-	@Operation(summary = "Retrieves a Expense resource from the database with the id that is given.")
+	@Operation(summary = "Retrieves an Expense resource from the database with the id that is given.")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Expense resource successfully retrieved.", headers = {
 					@Header(name = "location", description = "URI to access the created resource") }, content = {
@@ -123,23 +123,22 @@ public class ExpenseController {
 		return new ResponseEntity<>(expenseInDb, HttpStatus.OK);
 	}
 
-	@Operation(summary = "Retrieves a Expense resource from the database with the id that is given.")
+	@Operation(summary = "Retrieves an Expense resource(s) from the database.")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Expense resource successfully retrieved.", headers = {
 					@Header(name = "location", description = "URI to access the created resource") }, content = {
-							@Content(mediaType = MediaType.APPLICATION_JSON_VALUE) }),
-			@ApiResponse(responseCode = "404", description = "No Expense found for that id.") })
+							@Content(mediaType = MediaType.APPLICATION_JSON_VALUE) }) })
 	@GetMapping
 	public ResponseEntity<?> findAllExpense() {
 		return new ResponseEntity<>(this.expenseService.findAllExpenses(), HttpStatus.OK);
 	}
 
-	@Operation(summary = "Retrieves a Expense resource from the database with the id that is given.")
+	@Operation(summary = "Retrieves an Expense resource from the database with the income id that is given.")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Expense resource successfully retrieved.", headers = {
 					@Header(name = "location", description = "URI to access the created resource") }, content = {
 							@Content(mediaType = MediaType.APPLICATION_JSON_VALUE) }),
-			@ApiResponse(responseCode = "404", description = "No Expense found for that id.") })
+			@ApiResponse(responseCode = "404", description = "No Expense found for that income id.") })
 	@GetMapping("/incomes/{incomeId}")
 	public ResponseEntity<?> fidnExpensesByIncomeId(@PathVariable Integer incomeId) {
 		List<Expense> expenses = this.expenseService.findExpensesByIncomeId(incomeId);
