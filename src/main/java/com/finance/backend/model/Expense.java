@@ -35,7 +35,7 @@ public class Expense {
 	@JoinColumn(name = "FK_BUDGET_ID")
 	private Budget budget;
 
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	@JoinColumn(name = "FK_INCOME_ID")
 	private Income income;
 

@@ -2,6 +2,7 @@ package com.finance.backend.model;
 
 import java.math.BigDecimal;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,7 +32,7 @@ public class Budget {
 	@NotNull(message = "Budget Amount is required.")
 	private BigDecimal budgetAmount;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "FK_INCOME_ID")
 	private Income income;
 
