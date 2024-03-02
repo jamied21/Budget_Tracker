@@ -2,7 +2,6 @@ package com.finance.backend.model;
 
 import java.math.BigDecimal;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,10 +33,10 @@ public class Expense {
 	@ManyToOne
 	@JoinColumn(name = "FK_BUDGET_ID")
 	private Budget budget;
-
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
-	@JoinColumn(name = "FK_INCOME_ID")
-	private Income income;
+//
+//	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
+//	@JoinColumn(name = "FK_INCOME_ID")
+//	private Income income;
 
 	public Expense() {
 
@@ -80,13 +79,13 @@ public class Expense {
 	public void setBudget(Budget budget) {
 		this.budget = budget;
 	}
-
-	public Income getIncome() {
-		return income;
-	}
-
-	public void setIncome(Income income) {
-		this.income = income;
-	}
+//
+//	public Income getIncome() {
+//		return income;
+//	}
+//
+//	public void setIncome(Income income) {
+//		this.income = income;
+//	}
 
 }

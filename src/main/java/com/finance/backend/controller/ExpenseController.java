@@ -1,7 +1,6 @@
 package com.finance.backend.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
@@ -134,21 +133,32 @@ public class ExpenseController {
 		return new ResponseEntity<>(this.expenseService.findAllExpenses(), HttpStatus.OK);
 	}
 
-	@Operation(summary = "Retrieves a Expense resource from the database with the id that is given.")
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Expense resource successfully retrieved.", headers = {
-					@Header(name = "location", description = "URI to access the created resource") }, content = {
-							@Content(mediaType = MediaType.APPLICATION_JSON_VALUE) }),
-			@ApiResponse(responseCode = "404", description = "No Expense found for that id.") })
-	@GetMapping("/incomes/{incomeId}")
-	public ResponseEntity<?> fidnExpensesByIncomeId(@PathVariable Integer incomeId) {
-		List<Expense> expenses = this.expenseService.findExpensesByIncomeId(incomeId);
-
-		if (expenses.isEmpty()) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
-		return new ResponseEntity<>(expenses, HttpStatus.OK);
-
-	}
+	/*
+	 * @Operation(summary =
+	 * "Retrieves a Expense resource from the database with the id that is given.")
+	 * 
+	 * @ApiResponses(value = {
+	 * 
+	 * @ApiResponse(responseCode = "200", description =
+	 * "Expense resource successfully retrieved.", headers = {
+	 * 
+	 * @Header(name = "location", description =
+	 * "URI to access the created resource") }, content = {
+	 * 
+	 * @Content(mediaType = MediaType.APPLICATION_JSON_VALUE) }),
+	 * 
+	 * @ApiResponse(responseCode = "404", description =
+	 * "No Expense found for that id.") })
+	 * 
+	 * @GetMapping("/incomes/{incomeId}") public ResponseEntity<?>
+	 * fidnExpensesByIncomeId(@PathVariable Integer incomeId) { List<Expense>
+	 * expenses = this.expenseService.findExpensesByIncomeId(incomeId);
+	 * 
+	 * if (expenses.isEmpty()) { return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	 * }
+	 * 
+	 * return new ResponseEntity<>(expenses, HttpStatus.OK);
+	 * 
+	 * }
+	 */
 }
