@@ -21,7 +21,8 @@ public class Income {
 	@SequenceGenerator(name = "INCOME_ID_GEN", sequenceName = "income_id_seq", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "INCOME_ID_GEN")
 	private Integer id;
-
+	
+	@NotNull(message = "Income year is required.")
 	private Integer incomeYear;
 
 	@NotBlank(message = "Income month is required.")
